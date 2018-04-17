@@ -45,5 +45,13 @@ public class AlarmGreenManager {
         return alarmDao.loadAll();
     }
 
+    public int getListSize() {
+        int size = 0;
+        if (alarmDao != null) {
+            size = alarmDao.loadAll().size();
+        }
+        return size;
+    }
+
 
 }

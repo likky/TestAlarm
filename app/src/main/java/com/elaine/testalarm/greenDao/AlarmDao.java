@@ -31,6 +31,7 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
         public final static Property IsOpen = new Property(4, boolean.class, "isOpen", false, "IS_OPEN");
         public final static Property IsVoice = new Property(5, boolean.class, "isVoice", false, "IS_VOICE");
         public final static Property IsShake = new Property(6, boolean.class, "isShake", false, "IS_SHAKE");
+        public final static Property AlarmId = new Property(7, int.class, "alarmId", false, "ALARM_ID");
     }
 
 
@@ -52,7 +53,8 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
                 "\"TIMES\" INTEGER NOT NULL ," + // 3: times
                 "\"IS_OPEN\" INTEGER NOT NULL ," + // 4: isOpen
                 "\"IS_VOICE\" INTEGER NOT NULL ," + // 5: isVoice
-                "\"IS_SHAKE\" INTEGER NOT NULL );"); // 6: isShake
+                "\"IS_SHAKE\" INTEGER NOT NULL ," + // 6: isShake
+                "\"ALARM_ID\" INTEGER NOT NULL );"); // 7: alarmId
     }
 
     /** Drops the underlying database table. */
@@ -75,6 +77,7 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
         stmt.bindLong(5, entity.getIsOpen() ? 1L: 0L);
         stmt.bindLong(6, entity.getIsVoice() ? 1L: 0L);
         stmt.bindLong(7, entity.getIsShake() ? 1L: 0L);
+        stmt.bindLong(8, entity.getAlarmId());
     }
 
     @Override
@@ -91,6 +94,7 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
         stmt.bindLong(5, entity.getIsOpen() ? 1L: 0L);
         stmt.bindLong(6, entity.getIsVoice() ? 1L: 0L);
         stmt.bindLong(7, entity.getIsShake() ? 1L: 0L);
+        stmt.bindLong(8, entity.getAlarmId());
     }
 
     @Override
@@ -107,7 +111,8 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
             cursor.getInt(offset + 3), // times
             cursor.getShort(offset + 4) != 0, // isOpen
             cursor.getShort(offset + 5) != 0, // isVoice
-            cursor.getShort(offset + 6) != 0 // isShake
+            cursor.getShort(offset + 6) != 0, // isShake
+            cursor.getInt(offset + 7) // alarmId
         );
         return entity;
     }
@@ -121,6 +126,7 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
         entity.setIsOpen(cursor.getShort(offset + 4) != 0);
         entity.setIsVoice(cursor.getShort(offset + 5) != 0);
         entity.setIsShake(cursor.getShort(offset + 6) != 0);
+        entity.setAlarmId(cursor.getInt(offset + 7));
      }
     
     @Override

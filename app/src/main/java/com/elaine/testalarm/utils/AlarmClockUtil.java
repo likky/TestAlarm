@@ -20,14 +20,14 @@ import static android.content.Context.ALARM_SERVICE;
 public class AlarmClockUtil {
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+    private Intent intent;
     @SuppressLint("StaticFieldLeak")
     private static AlarmClockUtil alarmClockUtil;
 
     private AlarmClockUtil(Context context) {
         alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent = new Intent(context, AlarmReceiver.class);
         intent.setAction("Alarm_clock");
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
     public static AlarmClockUtil getInstance(Context context) {
@@ -37,19 +37,23 @@ public class AlarmClockUtil {
         return alarmClockUtil;
     }
 
-    public void setOnceAlarm(long time) {
+    public void setOnceAlarm(long time, Context context, int alarmId) {
+        pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
 
-    public void setEveryDayAlarm(long time) {
+    public void setEveryDayAlarm(long time, Context context, int alarmId) {
+        pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-    public void setEveryWeekAlarm(long time) {
+    public void setEveryWeekAlarm(long time, Context context, int alarmId) {
+        pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 7 * AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-    public void cancelAlarm() {
+    public void cancelAlarm(Context context, int alarmId) {
+        pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
         if (pendingIntent != null && alarmManager != null) {
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();

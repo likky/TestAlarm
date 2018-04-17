@@ -33,9 +33,12 @@ public class Alarm {
     private boolean isVoice;
     @NotNull
     private boolean isShake;
-    @Generated(hash = 1671285535)
+    @NotNull
+    private int alarmId;
+
+    @Generated(hash = 1142419776)
     public Alarm(Long id, @NotNull String content, long time, int times,
-            boolean isOpen, boolean isVoice, boolean isShake) {
+            boolean isOpen, boolean isVoice, boolean isShake, int alarmId) {
         this.id = id;
         this.content = content;
         this.time = time;
@@ -43,54 +46,76 @@ public class Alarm {
         this.isOpen = isOpen;
         this.isVoice = isVoice;
         this.isShake = isShake;
+        this.alarmId = alarmId;
     }
+
     @Generated(hash = 1972324134)
     public Alarm() {
     }
+
     public Long getId() {
         return this.id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getContent() {
         return this.content;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
+
     public long getTime() {
         return this.time;
     }
+
     public void setTime(long time) {
         this.time = time;
     }
+
     public int getTimes() {
         return this.times;
     }
+
     public void setTimes(int times) {
         this.times = times;
     }
+
     public boolean getIsOpen() {
         return this.isOpen;
     }
+
     public void setIsOpen(boolean isOpen) {
         this.isOpen = isOpen;
     }
+
     public boolean getIsVoice() {
         return this.isVoice;
     }
+
     public void setIsVoice(boolean isVoice) {
         this.isVoice = isVoice;
     }
+
     public boolean getIsShake() {
         return this.isShake;
     }
+
     public void setIsShake(boolean isShake) {
         this.isShake = isShake;
     }
 
+    public int getAlarmId() {
+        return this.alarmId;
+    }
 
+    public void setAlarmId(int alarmId) {
+        this.alarmId = alarmId;
+    }
 
 
 }

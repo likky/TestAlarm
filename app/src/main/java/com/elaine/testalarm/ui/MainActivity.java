@@ -119,14 +119,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 alarm.setIsShake(false);
             }
             alarm.setIsOpen(true);
+            alarm.setAlarmId(AlarmGreenManager.getInstance().getListSize());
             Log.i("alarm++++", new Gson().toJson(alarm));
             AlarmGreenManager.getInstance().insert(alarm);
             if (alarm.getTimes() == 1) {
-                AlarmClockUtil.getInstance(this).setOnceAlarm(alarm.getTime());
+                AlarmClockUtil.getInstance(this).setOnceAlarm(alarm.getTime(), this, alarm.getAlarmId());
             } else if (alarm.getTimes() == 30) {
-                AlarmClockUtil.getInstance(this).setEveryDayAlarm(alarm.getTime());
+                AlarmClockUtil.getInstance(this).setEveryDayAlarm(alarm.getTime(), this, alarm.getAlarmId());
             } else if (alarm.getTimes() == 4) {
-                AlarmClockUtil.getInstance(this).setEveryWeekAlarm(alarm.getTime());
+                AlarmClockUtil.getInstance(this).setEveryWeekAlarm(alarm.getTime(), this, alarm.getAlarmId());
             }
             finish();
         }
